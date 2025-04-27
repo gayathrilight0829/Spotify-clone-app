@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify-clone</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=language" />
+  
+</head>
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #141212;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color:black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+  padding: 16px;
+  height: 70px;
+}
+
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  height: 35px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #171717;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  width: 450px;
+  height: 50px;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  flex: 1;
+  margin: 0 8px;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.nav-icon {
+  height: 20px;
+  width: 20px;
+  stroke: #9ca3af;
+}
+
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.right-section a {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.right-section a:hover {
+  color:#d1d5db;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #4b5563;
+}
+
+.login-btn {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: bold;
+      padding: 6px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #e5e5e5;
+    }
+
+    .message-box {
+      position: absolute;
+      top: 100px;
+      left: 1200px;
+      background-color: white;
+      color: #000;
+      padding: 16px;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .message-box::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: -10px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent #FFFFFF transparent;
+    }
+
+    .message-box p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+      position: absolute;
+      top: 8px;
+      right: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+.search-btn {
+  width: 40px;
+  height: 40px;
+  background-color: #171717; 
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: white; 
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  stroke: black;
+}
+
+
+.flex {
+      display: flex;
+    
+      padding-top: 70px;
+    }
+
+    .sidebar {
+      width: 400px;
+      background-color: #08132c;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: fixed;
+      left: 0;
+      overflow-y: auto;
+    }
+
+   
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 12px;
+      color: #9ca3af;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+  
+}
+
+.sidetitle {
+  
+  --bg-color: #08132c;
+  background-color: var(--bg-color);
+width:500px;
+  border-radius: 1.25rem;
+}
+.loader {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 40px;
+  padding: 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 8px;
+}
+
+.words {
+  overflow: hidden;
+  position: relative;
+  
+}
+.words::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--bg-color) 10%,
+    transparent 30%,
+    transparent 70%,
+    var(--bg-color) 90%
+  );
+  z-index: 20;
+}
+
+.word {
+  display: block;
+  height: 100%;
+  padding-left: 6px;
+  color: #956afa;
+  animation: spin_4991 4s infinite;
+}
+
+@keyframes spin_4991 {
+  10% {
+    -webkit-transform: translateY(-102%);
+    transform: translateY(-102%);
+  }
+
+  25% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+
+  35% {
+    -webkit-transform: translateY(-202%);
+    transform: translateY(-202%);
+  }
+
+  50% {
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+  }
+
+  60% {
+    -webkit-transform: translateY(-302%);
+    transform: translateY(-302%);
+  }
+
+  75% {
+    -webkit-transform: translateY(-300%);
+    transform: translateY(-300%);
+  }
+
+  85% {
+    -webkit-transform: translateY(-402%);
+    transform: translateY(-402%);
+  }
+
+  100% {
+    -webkit-transform: translateY(-400%);
+    transform: translateY(-400%);
+  }
+}
+.plus-icon {
+  margin-left:140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.plus-icon:hover {
+  background-color: #FFFFFF1A;
+}
+
+.plus-icon svg {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+.playlist-card {
+  
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 400px;
+  font-family: sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  background-color: rgb(19, 28, 53);
+  
+}
+
+.playlist-card h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.playlist-card p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.playlist-button-wrapper button {
+      padding: 10px 16px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      width:130px;
+      height: 50px;
+    }
+
+    .playlist-button-wrapper button:hover {
+      background-color: #e6e6e6;
+    }
+
+    .playlist-popup {
+      position: absolute;
+      top: 310px;
+      left: 100px;
+      background-color: white;
+      color: #000;
+      
+      padding: 16px;
+      width: 280px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease;
+    }
+
+    
+    .playlist-popup::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: -10px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent #f6f8f9 transparent;
+    }
+
+    .playlist-popup p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .popup-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .popup-btn {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .popup-btn.cancel {
+      background-color: transparent;
+      color: #000;
+    }
+
+    .popup-btn.confirm {
+      background-color: white;
+      color: black;
+    }
+
+    .popup-hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-wrap-create {
+      display: inline-block;
+    }
+
+    .btn-create-playlist {
+      padding: 10px 16px;
+      background-color: white;
+      color: black;
+      height: 50px;
+      width: 120px;
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-create-playlist:hover {
+      background-color: #e6e6e6;
+    }
+
+    .popup-notice-wrap {
+      position: absolute;
+      top: 520px;
+      left: 100px;
+      background-color: #FFFFFF;
+      color: #000;
+      padding: 16px;
+      width: 280px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup-notice-wrap::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: -10px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent #FFFFFF transparent;
+    }
+
+    .popup-notice-wrap p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .popup-action-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .popup-act-btn {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .popup-act-btn.skip-btn {
+      background-color: transparent;
+      color: #000;
+    }
+
+    .popup-act-btn.login-btn {
+      background-color: white;
+      color: black;
+    }
+
+    .is-hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+.sidebar-footer {
+  font-size: 12px;          
+  color: #9ca3af;           
+     
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;             
+}
+
+.language {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgb(247, 244, 244);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.lan-Icon {
+  width: 24px;
+  transition-duration: 0.3s;
+  color:#08132c;
+
+}
+
+
+.language:hover {
+  width: 100px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: #08132c;
+  align-items: center;
+}
+
+.language:hover .svgIcon {
+  /* width: 20px; */
+  transition-duration: 0.3s;
+  transform: translateY(-200%);
+}
+
+.language::before {
+  position: absolute;
+  bottom: -20px;
+  content: "English";
+  color:white;
+  font-size: 0px;
+}
+
+.language:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  bottom: unset;
+  transition-duration: 0.3s;
+}
+
+
+.main-container {
+
+  margin-left: 400px; 
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.trending-title {
+  
+  font-size: 1.25rem; 
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  display: flex;
+  height:30px
+}
+
+.trending-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+
+  
+}
+
+.song-card {
+  width: 165px;
+  background-color: #2d2d2d; 
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+.song-thumbnail {
+  height: 10rem;
+  width: 100%;
+  background-color: #4b5563; 
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden; /
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.song-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.song-thumbnail:hover .song-img {
+      transform: scale(1.05);
+    }
+
+
+
+    .beats-header {
+      background-color: #141212;
+      padding: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .beats-title {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+
+    /* Popup Overlay */
+    .beats-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    /* Popup Box */
+    .beats-popup-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Close Button */
+    .beats-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /* Song Items */
+    .beats-song-item {
+      background-color: #eee;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .beats-song-thumbnail {
+      width: 80px;
+      height: 80px;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .beats-song-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .beats-song-title {
+      font-weight: bold;
+      color: black;
+      line-height: 2;
+    }
+    .beats-song-artist {
+      color: gray;
+    }
+
+
+.popup-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      
+    
+    }
+
+    .popup-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .song-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      
+    }
+
+    .cls-btn {
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      font-size: 2rem;
+      color:gray;
+      cursor: pointer;
+    }
+    
+  
+.seemore{
+color: grey;
+}
+.title-card{
+  display: flex;
+   justify-content: space-between; 
+   align-items: center;
+}
+
+
+.popup-song-title {
+  font-weight: 600;
+  color: #150202;
+}
+
+.song-artist {
+  font-size: 0.875rem; 
+  color: #9ca3af; 
+  line-height: 1.8;
+}
+
+.popular-artists-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.popular-artists-container {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 5px;
+  height: 200px;
+}
+
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+.artist-image {
+  width: 9.5rem;
+  height: 9.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+
+.artist-image:hover,
+.artist-image:active {
+  border: 2px solid #8a5afa; 
+  box-shadow: 0 0 12px #5e1ff1, 0 0 24px #8f57f1;
+}
+
+.artist-name {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #ffffff;
+}
+
+.new-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.new-modal-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 1000px;
+  color: black;
+  text-align: center;
+
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+
+.new-artist-list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.new-artist img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.new-artist img:hover,
+.new-artist img:active {
+  border: 2px solid #8a5afa; 
+  box-shadow: 0 0 12px #5e1ff1, 0 0 24px #8f57f1;
+}
+
+.new-artist p {
+  margin-top: 10px;
+}
+.carousel {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 400px; 
+    }
+    .carousel-inner {
+      display: flex;
+      width: 300%;
+      animation: slide 9s infinite;
+    }
+    .carousel-item {
+      flex: 1 0 100%;
+      width: 100%;
+    }
+    .caro-img {
+      
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      30% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      63% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      96% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+
+.album-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+.album-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.4s;
+}
+
+.albums .album:hover .album-img {
+  transform: scale(1.1);
+}
+.albums {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.albums .album {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 165px;
+  width: 165px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+
+
+.albums .album:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.albums:hover > .album:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
+
+
+.prime{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column; 
+  margin-top: 1rem;
+  margin-left: auto;
+  height:350px;
+  
+}
+
+
+
+.w-card {
+  
+  background: transparent;
+  box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
+  position: relative;
+  width: 250px;
+  height: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  width: 540px;
+  height: 700px;
+  opacity: 0.6;
+  left: 0;
+  top: 0;
+  margin-left: -50%;
+  margin-top: -70%;
+  background: linear-gradient(744deg,#af40ff,#5b42f3 60%,#00ddeb);
+}
+
+.wave-icon {
+  width: 3em;
+  margin-top: 1em;
+  padding-bottom: 1em;
+  justify-content: center;
+  
+}
+
+.infotop {
+  text-align: center;
+  font-size: 20px;
+  position: absolute;
+  top: 5.6em;
+  left: 0;
+  right: 0;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 100;
+  position: relative;
+  top: 1em;
+  text-transform: lowercase;
+}
+
+.wave:nth-child(2),
+.wave:nth-child(3) {
+  top: 210px;
+}
+
+.playing .wave {
+  border-radius: 40%;
+  animation: wave 3000ms infinite linear;
+}
+
+.wave {
+  border-radius: 40%;
+  animation: wave 55s infinite linear;
+}
+
+.playing .wave:nth-child(2) {
+  animation-duration: 4000ms;
+}
+
+.wave:nth-child(2) {
+  animation-duration: 50s;
+}
+
+.playing .wave:nth-child(3) {
+  animation-duration: 5000ms;
+}
+
+.wave:nth-child(3) {
+  animation-duration: 45s;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.main__heading {
+  font-weight: 600;
+  font-size: 2.25em;
+  margin-bottom: 0.75em;
+  text-align: center;
+  color: #eceff1;
+}
+
+.cards {
+  position: relative;
+  margin-left: auto;
+}
+
+.card {
+  --flow-space: 0.5em;
+  --hsl: var(--hue), var(--saturation), var(--lightness);
+  flex: 1 1 14rem;
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+  gap: 1.25em;
+  color: #eceff1;
+  background-color: #2b2b2b;
+  border: 1px solid #eceff133;
+  border-radius: 15px;
+  width: 250px;
+  height:335px;
+}
+
+.card:nth-child(1) {
+  --hue: 165;
+  --saturation: 82.26%;
+  --lightness: 51.37%;
+}
+
+.card__bullets {
+  line-height: 1.4;
+}
+
+.card__heading {
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.card__price {
+  font-size: 1.75em;
+  font-weight: 700;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, 1.25em);
+}
+
+.cta {
+  display: block;
+  align-self: end;
+  margin: 1em 0 0.5em 0;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  outline: 1px solid white;
+  padding: 0.7em;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.card:hover {
+  --lightness: 80%;
+  background: #ffffff80;
+  color: #000;
+  outline: 1px solid rgb(255, 255, 255);
+  box-shadow: inset 0 0 80px whitesmoke, inset 20px 0 80px rgba(255, 0, 255, 0.747),
+    inset -20px 0 80px #0ff, inset 20px 0 300px #f0f, inset -20px 0 300px #0ff,
+    0 0 50px #fff, -10px 0 80px #f0f, 10px 0 80px #0ff;
+  transition: all ease-in-out 0.3s;
+}
+
+.card:hover > .cta {
+  outline: none;
+  background-color: #0d0d0d;
+}
+
+.review{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column; 
+  
+  margin-top: 1rem;
+  margin-left: auto;
+  height: 250px;
+  
+}
+.review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(7 16 45);
+  background: linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+  background: -webkit-linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+  padding: 20px;
+  max-width: 330px;
+  border-radius: 16px;
+  height: 240px;
+}
+
+.stars {
+  display: flex;
+  grid-gap: 0.125rem;
+  gap: 0.125rem;
+  color: rgb(238, 203, 8);
+}
+
+.star {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.infos {
+  margin-top: 1rem;
+}
+
+.date-time {
+  color: rgba(7, 63, 216, 1);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.description {
+  margin-top: 0.4rem;
+  line-height: 1.625;
+  color: rgba(107, 114, 128, 1);
+}
+
+.author {
+  margin-top: 1.3rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgba(107, 114, 128, 1);
+}
+
+
+.app-card {
+  max-width: 350px;
+  background-color: rgb(7 16 45);
+  background: linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+  background: -webkit-linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgb(84 90 106);
+}
+
+.app-small-text, .app-title,.app-desc {
+  font-weight: 600;
+}
+
+.app-title,.app-desc {
+  margin: 8px 0;
+}
+
+.app-small-text {
+  color: #488aec;
+  font-size: 14px;
+}
+
+.app-title {
+  color: #fff;
+  font-size: 26px;
+  line-height: 26px;
+}
+
+.app-desc {
+  color: rgb(151 153 167);
+  font-size: 13px;
+  line-break: loose;
+  
+}
+
+.app-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.app-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 6px;
+  text-decoration: none;
+}
+
+.app-button:first-child {
+  box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+  background-color: #488aec;
+}
+
+.app-button:last-child {
+  box-shadow: 0 4px 6px -1px #0b162531, 0 2px 4px -1px #0e192b17;
+  background-color: #fff;
+}
+
+.app-icon {
+  height: 25px;
+  width: 25px;
+}
+
+.app-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.app-icon svg:last-child {
+  fill: #000
+}
+
+.app-button-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+
+.app-button-text span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.google span:first-child {
+  color: rgb(219 206 253);
+}
+
+.apple span:first-child {
+  color: rgb(81 87 108);
+}
+
+.google span:last-child {
+  color: #fff;
+  font-weight: 800;
+}
+
+.apple span:last-child {
+  color: #000;
+  font-weight: 800;
+}
+
+
+.footer {
+  background-color: #000;
+  color: #ccc;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  margin-left: 400px; 
+  flex: 1;
+  overflow-y: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.footer-column h4 {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column li {
+  margin-bottom: 10px;
+}
+
+.footer-column a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.footer-card {
+  width: fit-content;
+  height: fit-content;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 25px;
+  gap: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.055);
+}
+
+
+.socialContainer {
+  width: 52px;
+  height: 52px;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition-duration: .3s;
+}
+
+.containerOne:hover {
+  background-color: #d62976;
+  transition-duration: .3s;
+}
+.containerTwo:hover {
+  background-color: #00acee;
+  transition-duration: .3s;
+}
+
+.containerThree:hover {
+  background-color: #0072b1;
+  transition-duration: .3s;
+}
+
+.containerFour:hover {
+  background-color: #128C7E;
+  transition-duration: .3s;
+}
+
+.socialContainer:active {
+  transform: scale(0.9);
+  transition-duration: .3s;
+}
+
+.socialSvg {
+  width: 17px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+.socialContainer:hover .socialSvg {
+  animation: slide-in-top 0.3s both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+
+</style>
+<body>
+<!--navbar-->
+  <nav class="navbar">
+    <div class="left-section">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="logo">
+        <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
+        4.89862C2.99153 5.7992 2 7.47596 2 9.2763V14.7235C2 16.5238 2.99153 18.2014 4.58674 19.1012L9.41368
+        21.8252C10.2079 22.2734 11.105 22.5 12.0046 22.5C12.6952 22.5 13.3874 22.3657 14.0349 22.0954C14.2204
+        22.018 14.4059 21.9273 14.5872 21.8252L19.4141 19.1012C19.9765 18.7831 20.4655 18.3728 20.8651
+        17.8825C21.597 16.9894 22 15.8671 22 14.7243V9.27713C22 7.47678 21.0085 5.7992 19.4133 4.89862ZM4.10784
+        14.7235V9.2763C4.10784 8.20928 4.6955 7.21559 5.64066 6.68166L10.4676 3.95848C10.9398 3.69152 11.4701
+        3.55804 11.9996 3.55804C12.5291 3.55804 13.0594 3.69152 13.5324 3.95848L18.3593 6.68166C19.3045 7.21476
+        19.8922 8.20928 19.8922 9.2763V9.75997C19.1426 9.60836 18.377 9.53091 17.6022 9.53091C14.7929 9.53091
+        12.1041 10.5501 10.0309 12.3999C8.36735 13.8847 7.21142 15.8012 6.68783 17.9081L5.63981 17.3165C4.69466
+        16.7834 4.10699 15.7897 4.10699 14.7235H4.10784ZM10.4676 20.0413L8.60933 18.9924C8.94996 17.0479 9.94402
+        15.2665 11.4515 13.921C13.1353 12.4181 15.3198 11.5908 17.6022 11.5908C18.3804 11.5908 19.1477 11.6864
+        19.8922 11.8742V14.7235C19.8922 15.2278 19.7589 15.7254 19.5119 16.1662C18.7615 15.3596 17.6806 14.8528
+         16.4783 14.8528C14.2136 14.8528 12.3781 16.6466 12.3781 18.8598C12.3781 19.3937 12.4861 19.9021 12.68
+         20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path></svg>
+         <div class="nav-text">
+          <h2>Beatify</h2>
+         </div>
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 11-12 0 6 6 0 0112 0z" />
+        </svg>
+        <input type="text" placeholder="What do you want to play?" class="search-input" />
+        <button class="search-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 11-12 0 6 6 0 0112 0z" />
+        </svg>
+      </button>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <a href="#">Premium</a>
+      <a href="#">Download</a>
+      <div class="divider"></div>
+      <a href="#">Install App</a>
+      <a href="#">Sign up</a>
+      
+      <button class="login-btn" onclick="showMsgBox()">Log in</button>
+
+      <div id="msgBox" class="message-box hidden">
+        <button class="close-btn" onclick="hideMsgBox()">×</button>
+        <strong style="line-height:2">Login Successfully</strong>
+        <p>Enjoy Your Unlimited Music</p>
+      </div>
+    
+    </div>
+  </nav>
+<!-- side bar -->
+  <div class="flex">
+    <div class="sidebar">
+
+      <div class="sidetitle">
+        <div class="loader">
+          <p>Your</p>
+          <div class="words">
+            <span class="word">Library</span>
+            <span class="word">Collection</span>
+            <span class="word">Songs</span>
+            <span class="word">Library</span>
+            <span class="word">Playlist</span>
+            
+          </div>
+          <div class="plus-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+            </svg>
+          </div>
+        </div>
+       
+  
+      </div>
+
+      <div class="playlist-card">
+        <h3  style="line-height:2">Customize your listening journey</h3>
+        
+        <p style="line-height:1.5">Add  your favorite tracks and make it<br> yours.</p>
+        
+        
+
+        <div class="playlist-button-wrapper">
+          <button onclick="openPlaylistPopup()">Create playlist</button>
+        </div>
+      
+        <div id="playlistPrompt" class="playlist-popup popup-hidden">
+          <strong style="line-height:2.5">Create a playlist</strong>
+          <p style="color: grey;" >Log in to create and share playlists.</p>
+          <div class="popup-actions">
+            <button class="popup-btn cancel" onclick="closePlaylistPopup()">Not now</button>
+            <button class="popup-btn confirm">Log in</button>
+          </div>
+        </div>
+
+      </div>
+    
+      <div class="playlist-card">
+        <h3  style="line-height:2">Discover New Music</h3>
+        <p style="line-height:1.5">Based on your taste, we have got <br>something fresh!</p>
+        
+        
+  <div class="btn-wrap-create">
+    <button class="btn-create-playlist" onclick="showPopupNotice()">Explore Now</button>
+  </div>
+
+  <div id="popupNotice" class="popup-notice-wrap is-hidden">
+    <strong style="line-height:2.5">Create a playlist</strong>
+    <p style="color: grey;">Log in to create and share playlists.</p>
+    <div class="popup-action-row">
+      <button class="popup-act-btn skip-btn" onclick="hidePopupNotice()">Not now</button>
+      <button class="popup-act-btn login-btn">Log in</button>
+    </div>
+  </div>
+
+
+      </div>
+
+      <div class="sidebar-footer">
+        <p>Legal</p>
+        <p>Privacy Policy</p>
+        <p>Cookies</p>
+        <br>
+        <button class="language">
+          <span class="material-symbols-outlined lan-Icon">
+            language
+            </span>
+        </button>  
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="main-container">
+    <!--songs -->
+    <div class="beats-header">
+      <h2 class="beats-title">Trending Beats</h2>
+      <a class="seemore" href="#" onclick="openBeatsPopup()">See more</a>
+    </div>
+    
+    <!-- Popup1 -->
+    <div class="beats-overlay" id="beatsPopup">
+      <div class="beats-popup-box">
+        <span class="beats-close-btn" onclick="closeBeatsPopup()">×</span>
+        
+        <h2 class="beats-title" style="color: #000000; margin-bottom: 10px;" >Trending Beats</h2>
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye')">
+            <img class="beats-song-image" src="img/seemore1.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Sithira Puthiri</p>
+            <p class="beats-song-artist">Sai Abhyankkar</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye')">
+            <img class="beats-song-image" src="img/seemore2.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">God Bless U</p>
+            <p class="beats-song-artist">Aniruth</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye')">
+            <img class="beats-song-image" src="img/seemore3.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Kannadi poove</p>
+            <p class="beats-song-artist">Santosh Narayanan</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye')">
+            <img class="beats-song-image" src="img/seemore4.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Paththavaikum</p>
+            <p class="beats-song-artist">Deepthi</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye')">
+            <img class="beats-song-image" src="img/seemore5.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Achacho</p>
+            <p class="beats-song-artist">HipHop</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye')">
+            <img class="beats-song-image" src="img/seemore6.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Kadhale Kadhale</p>
+            <p class="beats-song-artist">HipHop</p>
+          </div>
+        </div>
+    
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song2.jpg', 'audio/uyiraa.mp3', 'Uyirey')">
+            <img class="beats-song-image" src="img/seemore7.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Vennilavu Saaral</p>
+            <p class="beats-song-artist">G.V.Prakash</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song2.jpg', 'audio/uyiraa.mp3', 'Uyirey')">
+            <img class="beats-song-image" src="img/seemore8.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Katchi Sera</p>
+            <p class="beats-song-artist">Sai Abhyankkar</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song2.jpg', 'audio/uyiraa.mp3', 'Uyirey')">
+            <img class="beats-song-image" src="img/seemore9.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Mehabooba</p>
+            <p class="beats-song-artist">Akshit Ravat</p>
+          </div>
+        </div>
+
+        <div class="beats-song-item">
+          <div class="beats-song-thumbnail" onclick="playSong('img/song2.jpg', 'audio/uyiraa.mp3', 'Uyirey')">
+            <img class="beats-song-image" src="img/seemore10.jpg" />
+          </div>
+          <div>
+            <p class="beats-song-title">Yedi</p>
+            <p class="beats-song-artist">G.V.Prakash</p>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+  
+    <div class="trending-container">
+      
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/song1.jpg', 'audio/valithunai.mp3', 'Vazhithunaiye ')">
+          <img class="song-img" src="img/song1.jpg" />
+        </div>
+
+        <p class="song-title">Vazhithunaiye</p>
+        <p class="song-artist">Sid Sriram</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/song2.jpg', 'audio/uyiraa.mp3', 'Uyirey ')">
+          <img class="song-img" src="img/song2.jpg" />
+        </div>
+        
+        <p class="song-title">Uyirey</p>
+        <p class="song-artist">G.V.Prakash</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/song3.jpg', 'audio/kanima.mp3', 'Kanimaa ')">
+          <img class="song-img" src="img/song3.jpg" />
+        </div>
+        <p class="song-title">Kanimaa</p>
+        <p class="song-artist">Santhosh Narayanan</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/song4.jpg', 'audio/minnalae.mp3', 'Hey Minnale ')">
+          <img class="song-img" src="img/song4.jpg" />
+        </div>
+        <p class="song-title">Hey Minnale</p>
+        <p class="song-artist">G.V.Prakash</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/song5.jpg', 'audio/golden.mp3', 'Golden Sparrow ')">
+          <img class="song-img" src="img/song5.jpg" />
+        </div>
+        <p class="song-title">Golden Sparrow</p>
+        <p class="song-artist">G.V.Prakash</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/song6.jpg', 'audio/pathikichuu.mp3', 'Pathikichu')">
+          <img class="song-img" src="img/song6.jpg" />
+        </div>
+        <p class="song-title">Pathikichu</p>
+        <p class="song-artist">Anirudh Ravichander</p>
+      </div>
+    </div>
+
+   <!-- Popup2 -->
+  <div class="popup-bg" id="popupModal">
+    <div class="cls-btn" onclick="hidePopup()">×</div>
+    <div class="popup-content">
+      <img class="popup-img" id="popupImg" src="" />
+      <p class="popup-song-title" id="popupTitle">Song Title</p><br>
+      <audio controls id="popupAudio">
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+    </div>
+  </div>
+  <!-- artist -->
+  <div class="title-card">
+    <h2 class="popular-artists-title">Popular artists</h2>
+    <a class="seemore" href="#" onclick="openNewModal()">See more</a>
+  </div>
+  
+  <!-- Popup1  -->
+  <div id="newPopupModal" class="new-modal">
+    <div class="new-modal-content">
+      <span class="close-button" onclick="closeNewModal()">&times;</span>
+      <h2 style="color: black;" class="popular-artists-title">Popular artists</h2>
+      <div class="new-artist-list">
+        
+        <div class="new-artist">
+          <img src="img/popart1.jpg" alt="Sai Abhyankkar">
+          <p>Sid Sriram</p>
+        </div>
+        
+        <div class="new-artist">
+          <img src="img/popart2.jpg" alt="Sai Abhyankkar">
+          <p>Saindhavi</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart3.jpg" alt="Sai Abhyankkar">
+          <p>Shakthisree Gopalan</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart4.jpg" alt="Sai Abhyankkar">
+          <p>Vijay Antony</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart5.jpg" alt="Sai Abhyankkar">
+          <p>HipHop Tamizha</p>
+        </div>
+        
+        <div class="new-artist">
+          <img src="img/popart6.jpg" alt="Sai Abhyankkar">
+          <p>Yuvan</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart7.jpg" alt="Sai Abhyankkar">
+          <p>Harris Jayaraj</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart8.jpg" alt="Sai Abhyankkar">
+          <p>Karthik</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart9.jpg" alt="Sai Abhyankkar">
+          <p>Andrea</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart10.jpg" alt="Sai Abhyankkar">
+          <p>Chithra</p>
+        </div>
+        
+        <div class="new-artist">
+          <img src="img/popart11.jpg" alt="Sai Abhyankkar">
+          <p>Anuradha</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart12.jpg" alt="Sai Abhyankkar">
+          <p>Sinmaye</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart13.jpg" alt="Sai Abhyankkar">
+          <p>Dhanush</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart14.jpg" alt="Sai Abhyankkar">
+          <p>Shruti Haasan</p>
+        </div>
+        <div class="new-artist">
+          <img src="img/popart15.jpg" alt="Sai Abhyankkar">
+          <p>srinivas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<div class="popular-artists-container">
+  <div class="artist-card">
+    <img src="img/artist1.jpg" class="artist-image" />
+    <p class="artist-name">Sai Abhyankkar</p>
+  </div>
+  <div class="artist-card">
+    <img src="img/artist2.jpg" class="artist-image" />
+    <p class="artist-name">G.V.Prakash</p>
+  </div>
+  <div class="artist-card">
+    <img src="img/artist3.jpg" class="artist-image" />
+    <p class="artist-name">Shreya Ghoshal</p>
+  </div>
+  <div class="artist-card">
+    <img src="img/artist4.jpg" class="artist-image" />
+    <p class="artist-name">Anirudh Ravichander</p>
+  </div>
+  <div class="artist-card">
+    <img src="img/artist5.jpg" class="artist-image" />
+    <p class="artist-name">A.R.Rahman</p>
+  </div>
+  <div class="artist-card">
+    <img src="img/artist6.jpg" class="artist-image" />
+    <p class="artist-name">Pradeep Kumar</p>
+  </div>
+</div>
+
+<div class="title-card">
+<h2 class="trending-title">Love Beats</h2>
+<a  class="seemore"   href="#">See more</a>
+    </div>
+    <div class="trending-container">
+      <!-- Card -->
+      <div class="song-card">
+        
+        <div class="song-thumbnail" onclick="showPopup('img/love1.jpg', 'audio/mannipaya.mp3', 'Mannipaya')">
+          <img class="song-img" src="img/love1.jpg" />
+        </div>
+        <p class="song-title">Mannipaya</p>
+        <p class="song-artist">A.R.Rahman</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/love2.jpg', 'audio/kadhalaa.mp3', 'Kaathalae')">
+          <img class="song-img" src="img/love2.jpg" />
+        </div>
+        <p class="song-title">Kaathalae</p>
+        <p class="song-artist">Govind Vasantha</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/love3.jpg', 'audio/pogathey.mp3', 'Pogathey')">
+          <img class="song-img" src="img/love3.jpg" />
+        </div>
+        <p class="song-title">Pogathey</p>
+        <p class="song-artist">Jen Martin</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/love4.jpg', 'audio/munbaa-vaa.mp3', 'Munbe vaa')">
+          <img class="song-img" src="img/love4.jpg" />
+        </div>
+        <p class="song-title">Munbe Vaa</p>
+        <p class="song-artist">Shreya Ghoshal</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/love5.jpg', 'audio/yenai-maatrum.mp3', 'Yenai Maatrum')">
+          <img class="song-img" src="img/love5.jpg" />
+        </div>
+        <p class="song-title">Yennai Maatrum</p>
+        <p class="song-artist">Anirudh Ravichander</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/love6.jpg', 'audio/ithalin.mp3', 'Idhalin Oram')">
+          <img class="song-img" src="img/love6.jpg" />
+        </div>
+        <p class="song-title">Idhalin Oram</p>
+        <p class="song-artist">Anirudh Ravichander</p>
+      </div>
+    </div>
+
+    <div class="title-card">
+    <h2 class="trending-title">HipHop Beats</h2>
+    <a  class="seemore"   href="#">See more</a>
+    </div>
+
+    <div class="trending-container">
+      
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/hip1.jpg', 'audio/kurchi.mp3', 'Kaathalae')">
+          <img class="song-img" src="img/hip1.jpg" />
+        </div>
+        <p class="song-title">Madathapetti</p>
+        <p class="song-artist">Thaman S</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/hip2.jpg', 'audio/matta.mp3', 'Matta')">
+          <img class="song-img" src="img/hip2.jpg" />
+        </div>
+        <p class="song-title">Matta</p>
+        <p class="song-artist">Yuvan Shankar Raja</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/hip3.jpg', 'audio/manasilayo.mp3', 'Manasilaayo')">
+          <img class="song-img" src="img/hip3.jpg" />
+        </div>
+        <p class="song-title">Manasilaayo</p>
+        <p class="song-artist">Anirudh Ravichander</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/hip4.jpg', 'audio/savadeeka.mp3', 'Sawadeeka')">
+          <img class="song-img" src="img/hip4.jpg" />
+        </div>
+        <p class="song-title">Sawadeeka</p>
+        <p class="song-artist">Anirudh Ravichander</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/hip5.jpg', 'audio/makkamichi.mp3', 'Makkamishi')">
+          <img class="song-img" src="img/hip5.jpg" />
+        </div>
+        <p class="song-title">Makkamishi</p>
+        <p class="song-artist">Harris Jayaraj</p>
+      </div>
+      <div class="song-card">
+        <div class="song-thumbnail" onclick="showPopup('img/hip6.jpg', 'audio/water.mp3', 'Water Packet')">
+          <img class="song-img" src="img/hip6.jpg" />
+        </div>
+        <p class="song-title">Water Packet</p>
+        <p class="song-artist">A.R.Rahman</p>
+      </div>
+    </div>
+
+    <div class="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item">
+          <img class="caro-img" src="img/caro1.png" alt="First Slide">
+        </div>
+        <div class="carousel-item">
+          <img class="caro-img" src="img/caro2.png" alt="Second Slide">
+        </div>
+        <div class="carousel-item">
+          <img class="caro-img" src="img/caro3.png" alt="Third Slide">
+        </div>
+      </div>
+    </div>
+    
+
+  <h2 class="album-title">Top Charts</h2>
+  <div class="albums">
+    <div class="album">
+      <img src="img/chat1.jpg" alt="song cover" class="album-img" />
+      
+    </div>
+
+    <div class="albums">
+      <div class="album">
+        <img src="img/chat3.jpg" alt="song cover" class="album-img" />
+        
+      </div>
+
+        <div class="albums">
+            <div class="album">
+              <img src="img/chat5.jpg" alt="song cover" class="album-img" />
+              
+            </div>
+
+            <div class="albums">
+                <div class="album">
+                  <img src="img/chat6.jpg" alt="song cover" class="album-img" />
+                  
+                </div>  
+                
+                <div class="albums">
+                    <div class="album">
+                      <img src="img/chat4.jpg" alt="song cover" class="album-img" />
+                      
+                    </div> 
+                    <div class="albums">
+                      <div class="album">
+                        <img src="img/chat2.jpg" alt="song cover" class="album-img" />
+                        
+                      </div>            
+                  </div>               
+                </div>
+        </div>
+      </div>
+    </div> 
+    </div>
+    
+ <div class="prime" >
+
+    <div class="cards__inner">
+      <div class="cards__card card">
+        <p class="card__heading">Basic Plan</p>
+        <p class="card__price">$0/month</p>
+        <ul class="card_bullets flow" role="list">
+          <li>Stream music with ads</li>
+          <li>Shuffle play only</li>
+          <li>Limited skips</li>
+        </ul>
+        <a class="card__cta cta" href="#basic">Get Started</a>
+      </div>
+      <div class="overlay cards__inner"></div>
+    </div>
+
+    <div class="cards__inner">
+      <div class="cards__card card">
+        <p class="card__heading">Ultra Plus</p>
+        <p class="card__price">$50/month</p>
+        <ul class="card_bullets flow" role="list">
+          <li>Ad-free listening</li>
+          <li>Offline downloads</li>
+          <li>Offline downloads</li>
+          <li>Multi-device support</li>
+        </ul>
+        <a class="card__cta cta" href="#basic">Get Started</a>
+      </div>
+      <div class="overlay cards__inner"></div>
+    </div>
+
+    <div class="cards__inner">
+      <div class="cards__card card">
+        <p class="card__heading">Ultra Pro</p>
+        <p class="card__price">$80/month</p>
+        <ul class="card_bullets flow" role="list">
+          <li>Access to all features</li>
+          <li>Exclusive artist content</li>
+          <li>AI-powered playlist</li>
+          <li>Unlimited storage</li>
+        </ul>
+        <a class="card__cta cta" href="#basic">Get Started</a>
+      </div>
+      <div class="overlay cards__inner"></div>
+    </div>
+    <div class="w-card playing">
+      <div class="image"></div>
+      
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      
+    
+          <div class="infotop">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="wave-icon">
+      <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
+      4.89862C2.99153 5.7992 2 7.47596 2 9.2763V14.7235C2 16.5238 2.99153 18.2014 4.58674 19.1012L9.41368
+      21.8252C10.2079 22.2734 11.105 22.5 12.0046 22.5C12.6952 22.5 13.3874 22.3657 14.0349 22.0954C14.2204
+      22.018 14.4059 21.9273 14.5872 21.8252L19.4141 19.1012C19.9765 18.7831 20.4655 18.3728 20.8651
+      17.8825C21.597 16.9894 22 15.8671 22 14.7243V9.27713C22 7.47678 21.0085 5.7992 19.4133 4.89862ZM4.10784
+      14.7235V9.2763C4.10784 8.20928 4.6955 7.21559 5.64066 6.68166L10.4676 3.95848C10.9398 3.69152 11.4701
+      3.55804 11.9996 3.55804C12.5291 3.55804 13.0594 3.69152 13.5324 3.95848L18.3593 6.68166C19.3045 7.21476
+      19.8922 8.20928 19.8922 9.2763V9.75997C19.1426 9.60836 18.377 9.53091 17.6022 9.53091C14.7929 9.53091
+      12.1041 10.5501 10.0309 12.3999C8.36735 13.8847 7.21142 15.8012 6.68783 17.9081L5.63981 17.3165C4.69466
+      16.7834 4.10699 15.7897 4.10699 14.7235H4.10784ZM10.4676 20.0413L8.60933 18.9924C8.94996 17.0479 9.94402
+      15.2665 11.4515 13.921C13.1353 12.4181 15.3198 11.5908 17.6022 11.5908C18.3804 11.5908 19.1477 11.6864
+      19.8922 11.8742V14.7235C19.8922 15.2278 19.7589 15.7254 19.5119 16.1662C18.7615 15.3596 17.6806 14.8528
+       16.4783 14.8528C14.2136 14.8528 12.3781 16.6466 12.3781 18.8598C12.3781 19.3937 12.4861 19.9021 12.68
+       20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path></svg><br>      
+      Beatify
+    <br>
+    <div class="name">Your Music partner</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="review">
+
+  <div class="review-card">
+    <div class="stars">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+      </svg>
+    </div>
+
+    <div class="infos">
+      <p class="date-time">
+                      2 day ago
+      </p>
+      <p class="description">
+        Spotify has changed the way I listen to music. The personalized playlists are always on point. I can’t imagine a day without it!
+      </p>
+  </div>
+
+  <div class="author">
+    — Angel
+  </div>
+ </div>
+
+<div class="review-card">
+  <div class="stars">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+    </svg>
+  </div>
+
+  <div class="infos">
+    <p class="date-time">
+                    2 day ago
+    </p>
+    <p class="description">
+      As a designer, I’m always listening while working. Spotify’s curated playlists boost my focus and creativity!
+    </p>
+</div>
+
+<div class="author">
+  — Jasmine
+</div>
+</div>
+
+<div class="app-card">
+<span class="app-small-text">Download Now!</span>
+<span class="app-title">Download our mobile application.</span>
+<span style="line-height:1.5" class="app-desc">Get the Beatify mobile app for iOS &amp; Android  stream music, make playlists, and vibe on the go.</span>
+<div class="app-buttons">
+<a href="#" class="app-button">
+  <span class="app-icon"><svg width="34" height="34" viewBox="0 0 34 34" fill="" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 28.9958V4.9125C4 4.07667 4.48167 3.34 5.19 3L19.1442 16.9542L5.19 30.9083C4.48167 30.5542 4 29.8317 4 28.9958ZM23.5642 21.3742L8.32083 30.1858L20.3483 18.1583L23.5642 21.3742ZM28.31 15.2683C28.7917 15.6508 29.1458 16.2458 29.1458 16.9542C29.1458 17.6625 28.8342 18.2292 28.3383 18.6258L25.0942 20.4958L21.5525 16.9542L25.0942 13.4125L28.31 15.2683ZM8.32083 3.7225L23.5642 12.5342L20.3483 15.75L8.32083 3.7225Z" fill="white"></path>
+</svg></span>
+  <div class="app-button-text google">
+    <span>Get it on</span>
+    <span>Google Play</span>
+  </div>
+</a>
+<a href="#" class="app-button">
+  <span class="app-icon"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M26.5058 27.625C25.33 29.3817 24.0833 31.0958 22.185 31.1242C20.2866 31.1667 19.6775 30.005 17.5241 30.005C15.3566 30.005 14.6908 31.0958 12.8916 31.1667C11.0358 31.2375 9.6333 29.2967 8.4433 27.5825C6.0208 24.0833 4.16497 17.6375 6.6583 13.3025C7.8908 11.1492 10.1008 9.78916 12.495 9.74666C14.3083 9.71833 16.0366 10.9792 17.1558 10.9792C18.2608 10.9792 20.3575 9.46333 22.5533 9.68999C23.4741 9.73249 26.0525 10.0583 27.71 12.495C27.5825 12.58 24.6358 14.3083 24.6641 17.8925C24.7066 22.1708 28.4183 23.6017 28.4608 23.6158C28.4183 23.715 27.8658 25.6558 26.5058 27.625ZM18.4166 4.95833C19.4508 3.78249 21.165 2.88999 22.5816 2.83333C22.7658 4.49083 22.1 6.16249 21.1083 7.35249C20.1308 8.55666 18.5158 9.49166 16.9291 9.36416C16.7166 7.73499 17.51 6.03499 18.4166 4.95833Z" fill=""></path>
+</svg></span>
+  <div class="app-button-text apple">
+    <span>Download from</span>
+    <span>App Store</span>
+  </div>
+</a>
+</div>
+</div>
+
+</div>
+  
+  </div>
+
+  <script>
+    function showMsgBox() {
+      document.getElementById('msgBox').classList.remove('hidden');
+    }
+
+    function hideMsgBox() {
+      document.getElementById('msgBox').classList.add('hidden');
+    }
+    function openPlaylistPopup() {
+      document.getElementById('playlistPrompt').classList.remove('popup-hidden');
+    }
+
+    function closePlaylistPopup() {
+      document.getElementById('playlistPrompt').classList.add('popup-hidden');
+    }
+
+    function showPopupNotice() {
+      document.getElementById('popupNotice').classList.remove('is-hidden');
+    }
+
+    function hidePopupNotice() {
+      document.getElementById('popupNotice').classList.add('is-hidden');
+    }
+    function showPopup(imgSrc, audioSrc, songTitle) {
+      document.getElementById('popupImg').src = imgSrc;
+      document.getElementById('popupAudio').src = audioSrc;
+      document.getElementById('popupTitle').textContent = songTitle;
+      document.getElementById('popupModal').style.display = 'flex';
+    }
+
+    function hidePopup() {
+      document.getElementById('popupModal').style.display = 'none';
+      document.getElementById('popupAudio').pause();
+    }
+    function openNewModal() {
+  document.getElementById("newPopupModal").style.display = "block";
+}
+
+function closeNewModal() {
+  document.getElementById("newPopupModal").style.display = "none";
+}
+function openBeatsPopup() {
+    document.getElementById('beatsPopup').style.display = 'flex';
+  }
+
+  function closeBeatsPopup() {
+    document.getElementById('beatsPopup').style.display = 'none';
+  }
+
+  function playSong(image, audio, title) {
+    alert('Now playing: ' + title);
+    
+  }
+  </script>
+  
+</body>
+<footer class="footer">
+  <div class="footer-container">
+    <!-- clm 1 -->
+    <div class="footer-column">
+      <h4>Beatify</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blogs</a></li>
+      </ul>
+    </div>
+
+    <!-- Clm 2 -->
+    <div class="footer-column">
+      <h4>Communities</h4>
+      <ul>
+        <li><a href="#">For Artists</a></li>
+        <li><a href="#">Developers</a></li>
+        <li><a href="#">Investors</a></li>
+        <li><a href="#">Partners</a></li>
+      </ul>
+    </div>
+
+    <!-- Clm 3 -->
+    <div class="footer-column">
+      <h4>Useful links</h4>
+      <ul>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Download App</a></li>
+      </ul>
+    </div>
+
+    <!-- Clm 4 -->
+    <div class="footer-column">
+      <h4>Spotify Plans</h4>
+      <ul>
+        <li><a href="#">Ultra Plus</a></li>
+        <li><a href="#">Ultra Pro</a></li>
+        <li><a href="#">Basic Plan</a></li>
+        <li><a href="#">Student Premium</a></li>
+        <li><a href="#">Beatify Free</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-card">
+      <a href="#" class="socialContainer containerOne">
+        <svg class="socialSvg instagramSvg" viewBox="0 0 16 16"> <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path> </svg>
+      </a>
+      
+      <a href="#" class="socialContainer containerTwo">
+        <svg class="socialSvg twitterSvg" viewBox="0 0 16 16"> <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path> </svg>              </a>
+        
+      <a href="#" class="socialContainer containerThree">
+        <svg class="socialSvg linkdinSvg" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>
+      </a>
+      
+      <a href="#" class="socialContainer containerFour">
+        <svg class="socialSvg whatsappSvg" viewBox="0 0 16 16"> <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path> </svg>
+      </a>
+    </div>             
+    
+    
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Beatify 
+  </div>
+</footer>
+</html>
